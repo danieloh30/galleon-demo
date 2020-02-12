@@ -1,7 +1,7 @@
 FROM openshift/wildfly-150-centos7:latest
-# Base Dockerfile: https://github.com/openshift-s2i/s2i-wildfly/blob/master/15.0/Dockerfile
+# Base Dockerfile: https://github.com/openshift-s2i/s2i-wildfly/blob/master/16.0/Dockerfile
 
-LABEL maintainer="Jorge Morales, Jean Francois Denise, Alexey Loubyansky"
+LABEL maintainer="Daniel Oh"
 
 LABEL io.k8s.description="Platform for building EE applications and Wildfly servers using Wildfly Galleon" \
       io.k8s.display-name="Wildfly Galleon S2I builder 1.0" \
@@ -10,7 +10,7 @@ LABEL io.k8s.description="Platform for building EE applications and Wildfly serv
 
 USER root
 
-ENV GALLEON_VERSION=3.0.2.Final
+ENV GALLEON_VERSION=4.2.4.Final
 RUN curl -sL -0 https://github.com/wildfly/galleon/releases/download/${GALLEON_VERSION}/galleon-${GALLEON_VERSION}.zip -o /tmp/galleon-${GALLEON_VERSION}.zip && \
     unzip /tmp/galleon-${GALLEON_VERSION}.zip -d /usr/local/ && \
     rm /tmp/galleon-${GALLEON_VERSION}.zip && \
@@ -23,6 +23,8 @@ ENV PATH=/usr/local/galleon/bin:$PATH
 # s2i path set in base image via LABEL: /usr/local/s2i
 RUN cp -prf $STI_SCRIPTS_PATH /usr/local/s2i-original
 COPY ./sti/bin/ $STI_SCRIPTS_PATH
+COPY ./settings.xml $HOME/.m2/
+
 # ENV S2I_SOURCE_DEPLOYMENTS_FILTER=*.war
 
 # Outputs will be left under this directory

@@ -2,26 +2,21 @@
 
 
 == Images
-This repository will create 3 images that will be pushed to online docker registry:
 
-- quay.io/jorgemoralespou/s2i-wildfly-galleon:latest
-- quay.io/jorgemoralespou/s2i-wildfly-galleon:15.0.1.Full
-- quay.io/jorgemoralespou/s2i-wildfly-galleon:16.0.0.Full
-
+- quay.io/danieloh30/galleon-demo:latest
 
 == Run on OpenShift
 
 Install the Imagestream in the OpenShift namespace:
 
 ----
-oc apply -f ose3/galleon-s2i-imagestream.yml -n openshift
+oc apply -f openshift/galleon-s2i-imagestream.yml -n openshift
 ----
 
-This will have installed the Builder images with 4 different versions:
+This will have installed the Builder images with 3 different versions:
 
 * latest
 * full (This is the latest of the images with cached content)
-* 15.0.1.Final 
 * 16.0.0.Final 
 
 Next install the template.
@@ -78,16 +73,3 @@ oc delete all -l app=my-galleon-s2i-app
 ----
 
 If you have changed the name of the app, use that in the labe selector.
-
-== Test locally before you push
-To make tests faster, mount local test app and .m2/repository into the container, this makes development much faster
-
-----
-docker build -t s2i-wildfly-galleon .
-docker run -it --rm --user 1001:root \
-   -v "$(pwd)/test/test-app-postgres":"/opt/s2i/destination/src" \
-   -v "$(pwd)/.m2-repository:/opt/app-root/src/.m2/repository" \
-   --entrypoint bash s2i-wildfly-galleon
-# Inside the container run:
-# /usr/libexec/s2i/assemble
-----

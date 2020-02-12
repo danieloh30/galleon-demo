@@ -190,25 +190,6 @@ objects:
             protocol: TCP
           resources: {}
           terminationMessagePath: /dev/termination-log
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 10
-            timeoutSeconds: 2
-            periodSeconds: 10
-            successThreshold: 1
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 30
-            timeoutSeconds: 2
-            periodSeconds: 10
-            successThreshold: 1
             failureThreshold: 3
         dnsPolicy: ClusterFirst
         restartPolicy: Always
@@ -275,26 +256,6 @@ objects:
             protocol: TCP
           resources: {}
           terminationMessagePath: /dev/termination-log
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 10
-            timeoutSeconds: 2
-            periodSeconds: 10
-            successThreshold: 1
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 30
-            timeoutSeconds: 2
-            periodSeconds: 10
-            successThreshold: 1
-            failureThreshold: 3
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
