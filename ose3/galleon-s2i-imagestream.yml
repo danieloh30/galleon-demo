@@ -11,7 +11,7 @@ spec:
       iconClass: icon-jboss
       tags: builder,java,maven,widlfly,galleon,ee
       supports: java:8,maven:3,wildfly:15
-      sampleRepo: https://github.com/jorgemoralespou/galleon-sample-app.git
+      sampleRepo: https://github.com/danieloh30/galleon-demo.git
       version: 'latest'
     from:
       kind: DockerImage
@@ -33,7 +33,7 @@ spec:
       iconClass: icon-jboss
       tags: builder,java,maven,widlfly,galleon,ee
       supports: java:8,maven:3,wildfly:15
-      sampleRepo: https://github.com/jorgemoralespou/galleon-sample-app.git
+      sampleRepo: https://github.com/danieloh30/galleon-demo.git
       version: '15.0.1.Final'
     from:
       kind: DockerImage
@@ -44,7 +44,7 @@ spec:
       iconClass: icon-jboss
       tags: builder,java,maven,widlfly,galleon,ee
       supports: java:8,maven:3,wildfly:15
-      sampleRepo: https://github.com/jorgemoralespou/galleon-sample-app.git
+      sampleRepo: https://github.com/danieloh30/galleon-demo.git
       version: '16.0.0.Final'
     from:
       kind: DockerImage
