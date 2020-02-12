@@ -1,0 +1,89 @@
+#!/bin/bash
+echo "Before assembling"
+
+OUTPUT_ARTIFACTS_DIR=${OUTPUT_ARTIFACTS_DIR:-"/output/deployments"}
+OUTPUT_WILDFLY_DIR=${OUTPUT_WILDFLY_DIR:-"/output/wildfly"}
+
+INITIAL_SRC_DIR="/opt/s2i/destination/src/"
+
+function copy_artifacts() {
+  dir=$1
+  types=
+  shift
+  while [ $# -gt 0 ]; do
+    types="$types;$1"
+    shift
+  done
+
+  for d in $(echo $dir | tr "," "\n")
+  do
+    shift
+    for t in $(echo $types | tr ";" "\n")
+    do
+      echo "Coping all $t artifacts from $d directory into $OUTPUT_ARTIFACTS_DIR for later use..."
+      cp -vfp $d/*.$t $OUTPUT_ARTIFACTS_DIR 2> /dev/null
+    done
+  done
+}
+
+function install_wildfly_with_galleon {
+  echo "Run galleon"
+  # Run galleon
+  local _file="provisioning.xml"
+  PROVISIONING_FILE="${INITIAL_SRC_DIR}${_file}"
+  if [ -f ${PROVISIONING_FILE} ]
+  then
+    galleon provision ${PROVISIONING_FILE} --dir=${OUTPUT_WILDFLY_DIR} --verbose
+    local ret=$?
+    if [ $ret -eq 0 ]; then
+      # Replace original /wildfly for runtime in this image
+      rm -rf /wildfly/.galleon
+      rm -rf /wildfly/*
+      cp -prf ${OUTPUT_WILDFLY_DIR}/* /wildfly
+      cp -prf ${OUTPUT_WILDFLY_DIR}/.galleon /wildfly/.galleon
+      chown -R 1001:0 /wildfly && chmod -R ug+rwX /wildfly
+    fi
+    return $ret
+  fi
+}
+
+function install_modules {
+  local _file="local-galleon-feature-packs.txt"
+  LOCAL_FPS_FILE="${INITIAL_SRC_DIR}${_file}"
+  echo "Installing additional modules if file \"${LOCAL_FPS_FILE}\" defined"
+  if [ -e "${LOCAL_FPS_FILE}" ]; then
+    echo "Additional modules file found"
+    while read -r URL; do
+      read -r M2PATH
+      fullpath="$HOME/.m2/repository/$M2PATH"
+      mkdir -p $fullpath
+      curl -skL "${URL}" -o "${fullpath}${URL##*/}"
+      rc=$?
+      [ $rc -eq 0 ] && echo "Installed ${fullpath}${URL##*/}"
+    done < ${LOCAL_FPS_FILE}
+    echo "Additional modules installed"
+  else
+    echo "No additional modules defined"
+  fi
+}
+
+# Install modules
+install_modules
+
+# Install new version of wildfly
+install_wildfly_with_galleon
+rc=$?
+
+if [ $rc -eq 0 ]; then
+    echo "WildFly successfully created and installed by Galleon"
+    # Call original assemble
+    /usr/local/s2i-original/assemble
+    # Copy built artifacts to output directory
+    copy_artifacts "/wildfly/standalone/deployments" war ear rar jar
+    echo "The application has been built and copied into /wildfly/standalone/deployments"
+else
+    echo "Galleon couldn't install your WildFly install. Check the logs for the real problem"
+    echo "The application has not been built"
+fi
+
+exit $rc
