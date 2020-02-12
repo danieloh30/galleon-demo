@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.5">
+<file name="/Users/danieloh/cloud-native-app-dev/eap/quickstarts/helloworld-rs/src/main/java/org/jboss/as/quickstarts/rshelloworld/HelloWorld.java">
+</file>
+<file name="/Users/danieloh/cloud-native-app-dev/eap/quickstarts/helloworld-rs/src/main/java/org/jboss/as/quickstarts/rshelloworld/JAXActivator.java">
+</file>
+<file name="/Users/danieloh/cloud-native-app-dev/eap/quickstarts/helloworld-rs/src/main/java/org/jboss/as/quickstarts/rshelloworld/HelloService.java">
+</file>
+</checkstyle>

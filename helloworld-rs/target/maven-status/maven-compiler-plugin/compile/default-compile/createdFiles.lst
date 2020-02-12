@@ -1,0 +1,3 @@
+org/jboss/as/quickstarts/rshelloworld/HelloWorld.class
+org/jboss/as/quickstarts/rshelloworld/JAXActivator.class
+org/jboss/as/quickstarts/rshelloworld/HelloService.class
