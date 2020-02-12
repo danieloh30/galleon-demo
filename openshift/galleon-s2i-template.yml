@@ -189,6 +189,7 @@ objects:
           - containerPort: 8080
             protocol: TCP
           resources: {}
+          terminationMessagePath: /dev/termination-log
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
@@ -253,6 +254,7 @@ objects:
           - containerPort: 8080
             protocol: TCP
           resources: {}
+          terminationMessagePath: /dev/termination-log
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
