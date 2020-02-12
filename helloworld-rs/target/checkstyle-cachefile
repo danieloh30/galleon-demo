@@ -1,6 +1,0 @@
-#Sun Feb 02 01:33:24 EST 2020
-configuration*?=065F250A4535FC55096E02AA165CF883F0D7C7D5
-module-resource*?\:/wildfly-checkstyle/suppressions.xml=DD3FD5987C62C3034A4613F83C42B24683BCFC2E
-/Users/danieloh/cloud-native-app-dev/eap/quickstarts/helloworld-rs/src/main/java/org/jboss/as/quickstarts/rshelloworld/HelloService.java=1565367804000
-/Users/danieloh/cloud-native-app-dev/eap/quickstarts/helloworld-rs/src/main/java/org/jboss/as/quickstarts/rshelloworld/HelloWorld.java=1565367804000
-/Users/danieloh/cloud-native-app-dev/eap/quickstarts/helloworld-rs/src/main/java/org/jboss/as/quickstarts/rshelloworld/JAXActivator.java=1565367804000
