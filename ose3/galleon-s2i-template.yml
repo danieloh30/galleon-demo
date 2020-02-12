@@ -21,7 +21,7 @@ parameters:
   description: The application git repository
   displayName: git repository
   required: true
-  value: https://github.com/jorgemoralespou/s2i-wildfly-galleon
+  value: https://github.com/danieloh30/galleon-demo
 - name: GIT_CONTEXT_DIR
   description: The application git repository sub directory
   displayName: git repository sub directory
