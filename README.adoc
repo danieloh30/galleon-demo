@@ -22,7 +22,7 @@ This will have installed the Builder images with 3 different versions:
 Next install the template.
 
 ----
-oc apply -f ose3/galleon-s2i-template.yml
+oc apply -f openshift/galleon-s2i-template.yml
 ----
 
 Install the template (Create the app):
