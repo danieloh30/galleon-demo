@@ -13,7 +13,7 @@
                 <param name="enabled" value="true"/>
                 <param name="use-java-context" value="true"/>
                 <param name="jndi-name" value="java:jboss/datasources/TasksRsQuickstartDS"/>
-                <param name="connection-url" value="jdbc:postgresql://galleon:5432"/>
+                <param name="connection-url" value="jdbc:postgresql://galleon:5432/galleon"/>
                 <param name="driver-name" value="postgresql"/>
                 <param name="user-name" value="galleon"/>
                 <param name="password" value="mysecretpassword"/>
